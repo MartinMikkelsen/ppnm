@@ -1,0 +1,27 @@
+max int while = 2147483647
+The maximum value of INT_MAX = 2147483647
+max int for = 2147483647
+max int for do = 2147483647
+Now for the minimum value
+min int while = -2147483648
+The minimum value of INT_MAX = -2147483648
+min int for = -2147483648
+min int for do = -2147483648
+Epsilon machine
+The number is: 2.22045e-16
+The number is: 2.22045e-16
+The number is: 2.22045e-16
+The number is: 1.19209e-07
+The number is: 1.19209e-07
+The number is: 1.19209e-07
+The number is: 1.0842e-19
+The number is: 1.0842e-19
+The number is: 1.0842e-19
+The value for FLT_EPSILON = 1.19209e-07
+The value for DBL_EPSILON= 2.22045e-16
+The value for LDBL_EPSILON= 1.0842e-19
+sum up = 1.09129e+08
+sum down = 1.17114e+08
+sum up double = 1.17117e+08
+sum down double = 1.17117e+08
+1
