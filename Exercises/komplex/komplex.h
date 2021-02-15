@@ -10,16 +10,5 @@ komplex komplex_new      (double x, double y);   /* returns x+i*y */
 komplex komplex_add      (komplex a, komplex b); /* returns a+b */
 komplex komplex_sub      (komplex a, komplex b); /* returns a-b */
 
-/* the following is optional */
-int     komplex_equal    (komplex a, komplex b, double acc, double eps); /* returns 1 if equal, 0 otherwise */
-komplex komplex_mul      (komplex a, komplex b); /* returns a*b */
-komplex komplex_div      (komplex a, komplex b); /* returns a/b */
-komplex komplex_conjugate(komplex z);            /* returns complex conjugate */
-double  komplex_abs      (komplex z);
-komplex komplex_exp      (komplex z);
-komplex komplex_sin      (komplex z);
-komplex komplex_cos      (komplex z);
-komplex komplex_sqrt     (komplex z);
-/* end of optional */
 
 #endif

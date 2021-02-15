@@ -19,4 +19,9 @@ komplex komplex_add (komplex a, komplex b) {
 	komplex result = { a.re + b.re , a.im + b.im };
 	return result;
 }
+
+komplex komplex_sub (komplex a, komplex b) {
+	komplex result = { a.re - b.re , a.im - b.im };
+	return result;
+}
 /* ... */
