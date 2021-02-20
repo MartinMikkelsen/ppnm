@@ -1,3 +1,5 @@
+#include<math.h>
+
 double Gamma(double x){
 ///single precision gamma function (Gergo Nemes, from Wikipedia)
 if(x<0)return M_PI/sin(M_PI*x)/Gamma(1-x);

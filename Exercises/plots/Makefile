@@ -19,7 +19,7 @@ erf.gnuplot.png: data.txt tabulatedvalues.txt Makefile
 	,"tabulatedvalues.txt" using 1:2 with points title "tabulated data"\
 	' | gnuplot
 
-gamma.gnuplot.png: data2.txt Makefile
+gamma.gnuplot.png: data2.txt Makefile   
 	echo '\
 	set terminal png;\
 	set output "$@";\
@@ -29,13 +29,15 @@ gamma.gnuplot.png: data2.txt Makefile
 	set ylabel "y";\
 	set title "Gamma function";\
 	plot \
-	 "$<" using 1:2 with line title "tgamma from math.h"\
-	' | gnuplot
-
+         "$<" using 1:2 with line title "gamma from math.h"\
+         ,"$<" using 1:3 with line title "gsl-sf-gamma"\
+	 ,"$<" using 1:4 with line title "Stirling"\
+        ,"tabulated2.txt" using 1:2 with points title "tabulated data"\
+        '| gnuplot
 data.txt: main
 	./$< > $@
 
-main: main.o erf.o 
+main: main.o erf.o gamma.o 
 
 .PHONEY:clean
 clean: 
