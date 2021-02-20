@@ -1,0 +1,1 @@
+set terminal png;set output "erf.gnuplot2.png";set key top left;set tics out;set xlabel "x";set ylabel "y";set title "Error function";plot "data.txt" with line title "error function";
