@@ -7,12 +7,12 @@ default: expo.pdf ms.pdf
 
 expo.pdf: data.txt Makefile 
 	echo '\
-	set terminal pdf;\
+	set terminal pdfcairo;\
 	set output "$@";\
 	set key top left;\
 	set tics out;\
-	set xlabel "x";\
-	set ylabel "y";\
+	set xlabel "$x$";\
+	set ylabel "$y$";\
 	set title "Exponential function";\
 	plot \
         "$<" using 1:2 with line title "expo func"\

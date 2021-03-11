@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2021.2.25)  11 MAR 2021 15:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2021.2.25)  11 MAR 2021 16:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1758,11 +1758,11 @@ Package rerunfilecheck Info: File `ms.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 119.
  ) 
 Here is how much of TeX's memory you used:
- 38819 strings out of 480608
- 840114 string characters out of 5903630
+ 38823 strings out of 480608
+ 840149 string characters out of 5903630
  1376492 words of memory out of 5000000
  53968 multiletter control sequences out of 15000+600000
- 600900 words of font info for 156 fonts, out of 8000000 for 9000
+ 601324 words of font info for 159 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  69i,11n,119p,719b,2248s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/kpfonts/kpfonts-expert.en
@@ -1774,7 +1774,7 @@ f-dist/fonts/type1/public/kpfonts/jkpmnc.pfb></usr/local/texlive/2020/texmf-dis
 t/fonts/type1/public/kpfonts/jkpmne.pfb></usr/local/texlive/2020/texmf-dist/fon
 ts/type1/public/kpfonts/jkpsy.pfb></usr/local/texlive/2020/texmf-dist/fonts/typ
 e1/public/kpfonts/jkpsyb.pfb>
-Output written on ms.pdf (1 page, 65149 bytes).
+Output written on ms.pdf (1 page, 65143 bytes).
 PDF statistics:
  82 PDF objects out of 1000 (max. 8388607)
  63 compressed objects within 1 object stream
