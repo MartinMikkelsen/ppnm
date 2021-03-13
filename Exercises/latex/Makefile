@@ -1,6 +1,6 @@
 CFLAGS = -O -Wall -std=gnu11
 CFLAGS += $(shell gsl-config --cflags)
-LDLIBS = $(shell gsl-config --libs)
+LDLIBS += $(shell gsl-config --libs)
 
 .PHONEY:default
 default: expo.pdf ms.pdf
@@ -17,6 +17,7 @@ expo.pdf: data.txt Makefile
 	plot \
         "$<" using 1:2 with line title "expo func"\
         '| gnuplot
+
 
 data.txt: main 
 	./$< >$@
