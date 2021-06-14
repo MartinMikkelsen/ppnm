@@ -34,8 +34,6 @@ void GS_decomp(gsl_matrix* A, gsl_matrix* R) {
 
    assert(A->size1 >= A->size2 && A->size2 == R->size2 && R->size1 == R->size2 && "A must be n x m with n >= m; R must be m x m!");
    int m = A->size2;
-
-   // calculate Q (in place of A) and R
    for (int i = 0; i < m; ++i) {
 
       // calculate ai <- ai/||ai||
@@ -56,7 +54,6 @@ void GS_decomp(gsl_matrix* A, gsl_matrix* R) {
    }
 }
 
-
 // Solve (QRx = b <=> R*x = Qt*b by back-substitution)
 void GS_solve(gsl_matrix* Q, gsl_matrix* R, gsl_vector* b, gsl_vector* x) {
 
@@ -65,7 +62,32 @@ void GS_solve(gsl_matrix* Q, gsl_matrix* R, gsl_vector* b, gsl_vector* x) {
 
    // do back-substitution
    backsub(R, x);
-
 }
 
+void GS_inverse(gsl_matrix* Q, gsl_matrix* R, gsl_matrix* B) {
+   
+   // check sizes
+   assert(Q->size1 == Q->size2 && R->size1 == R->size2 && B->size1 == B->size2 &&
+          Q->size1 == R->size1 && R->size1 == B->size1 && 
+          "Q, R and B must be square matrices of same size!");
+   
+   int n = Q->size1;
+
+   // allocate vector ei for solving A*bi = ei
+   gsl_vector* ei = gsl_vector_alloc(n);
+
+   // loop over columns i
+   for (int i = 0; i < n; ++i) { 
+
+      gsl_vector_view view = gsl_matrix_column(B, i);
+      gsl_vector* bi = &view.vector;
+      gsl_vector_set_basis(ei, i);
+      
+      GS_solve(Q, R, ei, bi);
+   }
+
+   // free memory
+   gsl_vector_free(ei);
+
+}
 
