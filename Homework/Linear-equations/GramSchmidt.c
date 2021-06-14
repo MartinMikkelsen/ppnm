@@ -3,21 +3,69 @@
 #include <gsl/gsl_matrix.h>
 #include <gsl/gsl_vector.h>
 #include <gsl/gsl_blas.h>
+#include <time.h>
 
-#include "gramSchmidt.h"
-#include "backsub.h"
-#include "forwardsub.h"
+#include "GramSchmidt.h"
+#include "utilities.h"
 
-//Need to implement normalization
-
+#include <stdio.h> 
 
 
-void GramSchmidt_decomp(gsl_matrix* A, gsl_matrix* Q)
+void backsub(gsl_matrix* M, gsl_vector* v){
+	for (int i = v->size - 1; i >= 0; i--) {
+		double sum = gsl_vector_get(v, i);
+		for (int j = i + 1; j < v->size; j++) {
+			sum -= gsl_matrix_get(M, i, j)*gsl_vector_get(v, j);
+		}
+		gsl_vector_set(v, i, sum/gsl_matrix_get(M, i, i));
+	}
+}
 
-    int numOfRows   =  (int) A -> size1;
-    int numOfCols   =  (int) A -> size2;
-    assert( numOfRows >= numOfCols );
+void forwardsub(gsl_matrix* L, gsl_vector*c){
+    for(int i=c->size-1; i<0;i++){
+        double s=gsl_vector_get(c,i);
+        for(int k=1; k<i-1; k++) s-=gsl_matrix_get(L,i,k)*gsl_vector_get(c,k);
+        gsl_vector_set(c,i,s/gsl_matrix_get(L,i,i));
+    }
+ }  
 
-    gsl_vector* col   =   gsl_vector_alloc(numOfRows);
-    *col              =   (gsl_matrix_column( matrixToQR, colId )).vector;
-    double colNorm    =   gsl_blas_dnrm2(col);                                 
+// QR decomposition by Gram-Schmidt algorithm (A <- Q)
+void GS_decomp(gsl_matrix* A, gsl_matrix* R) {
+
+   assert(A->size1 >= A->size2 && A->size2 == R->size2 && R->size1 == R->size2 && "A must be n x m with n >= m; R must be m x m!");
+   int m = A->size2;
+
+   // calculate Q (in place of A) and R
+   for (int i = 0; i < m; ++i) {
+
+      // calculate ai <- ai/||ai||
+      gsl_vector_view view_ai = gsl_matrix_column(A, i);
+      //gsl_vector* ai = &view_ai.vector;
+      double Rii = norm(&view_ai.vector);
+      gsl_vector_scale(&view_ai.vector, 1/Rii);
+      gsl_matrix_set(R, i, i, Rii);
+
+      // calculate aj <- aj - <qi|aj>qi
+      for (int j = i + 1; j < m; ++j) {
+         gsl_vector_view view_aj = gsl_matrix_column(A, j);
+         //gsl_vector* aj = &view_aj.vector;
+         double Rij = dot(&view_ai.vector, &view_aj.vector);
+         gsl_blas_daxpy(-Rij, &view_ai.vector, &view_aj.vector);
+         gsl_matrix_set(R, i, j, Rij);
+      }
+   }
+}
+
+
+// Solve (QRx = b <=> R*x = Qt*b by back-substitution)
+void GS_solve(gsl_matrix* Q, gsl_matrix* R, gsl_vector* b, gsl_vector* x) {
+
+   // calculate x <- Qt*b
+   gsl_blas_dgemv(CblasTrans, 1, Q, b, 0, x);
+
+   // do back-substitution
+   backsub(R, x);
+
+}
+
+

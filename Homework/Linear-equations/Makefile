@@ -1,16 +1,20 @@
+CC = gcc
 CFLAGS = -Wall -O1 -std=gnu11
 CFLAGS += $(shell gsl-config --cflags)
 LDLIBS += $(shell gsl-config --libs)
-CC = gcc-10
 
-.PHONEY:default
+all: output.txt
+	cat $<
 
-default: out.txt
-
-out.txt: main
+output.txt: main
 	./$< > $@
 
-.PHONEY: clean
+main: main.o GramSchmidt.o utilities.o
 
 clean:
-	$(RM) main out.txt
+	$(RM) main *.o *.txt *.ppl *.pdf *.png ../util.o
+
+test:
+	@echo $(CFLAGS)
+	@echo $(LDLIBS)
+
