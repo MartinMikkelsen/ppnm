@@ -74,14 +74,3 @@ int binsearch_array(int N, double* x, double x_new) {
 
 	return i;
 }
-
-double funs(int i, double x){
-    switch(i){
-        case 0: return 1; break;
-        case 1: return x; break;
-        case 2: return x*x; break;
-        default: return NAN;
-        }
-}
-
-
