@@ -27,23 +27,13 @@ plot.ppl: data.txt Makefile
 	@echo 'set title "Measurements with error bars"'			>> $@	
 	@echo 'plot \\'											>> $@
 	@echo ' "data.txt" using 1:2:3 with yerrorbars color black title "Measurements" 	\\'>> $@
-
-logplotfit.pdf: logplotfit.ppl
-	pyxplot $< 1> /dev/null
-
-logplotfit.ppl: Out.data.txt Makefile
-	@echo 'set terminal pdf dpi 600'						>  $@
-	@echo 'set output "logplotfit.pdf"'						>> $@
-	@echo ' "Out.data.txt.txt" using 1:2 w l lw 1 lt 5 color black title "$$\ln(y) = (%.2f \pm %.2f) + (%.3f \pm %.3f)t$$"%(lna, dlna, lambda, dlambda) \\'>> $@
-	@echo ',"Out.data.txt" using 1:3 w l lw 1 lt 3 color black title "" 					\\'>> $@
-	@echo ',"Out.data.txt" using 1:4 w l lw 1 lt 3 color black title "" 					\\'>> $@
-	@echo ',"Out.data..txt" using 1:2:3 with yerrorbars color blue title "Measurements" 	\\'>> $@
-
-
-
-
+	
 Out.data.text:main
 		./$< 1>$@ 2>log
+
+logdata.txt: main
+		./$< 1>$@ Out.data.text
+
 
 main: main.o GramSchmidt.o utilities.o lsfit.o
 

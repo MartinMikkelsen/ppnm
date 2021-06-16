@@ -13,7 +13,7 @@
 void lsfit(
         int m, double f(int i, double x),
         gsl_vector* x, gsl_vector* y, gsl_vector* dy,
-        gsl_vector* c, gsl_matrix* S, funs(i,x));
+        gsl_vector* c, gsl_matrix* S);
 
 int main(){
     double x[] = {1,  2,  3, 4, 6, 9,   10,  13,  15};
@@ -41,6 +41,15 @@ int main(){
 	gsl_vector* c = gsl_vector_alloc(m);
 	gsl_matrix* S = gsl_matrix_alloc(m,m);
 	lsfit(m,funs,vx,vy,vdy,c,S);
+
+    FILE* logdata_file = fopen("logdata.txt", "w");
+    for (int i = 0; i < n; ++i) {
+      double xi  = gsl_vector_get(vx, i);
+      double yi  = gsl_vector_get(vy, i);
+      double dyi = gsl_vector_get(vdy, i);
+      fprintf(logdata_file, "%10.5f %10.5f %10.5f\n", xi, yi, dyi);
+   }
+
 
 fprintf(stderr,"c=\n");
 for(int i=0;i<c->size;i++)fprintf(stderr,"%10g ",gsl_vector_get(c,i));

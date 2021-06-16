@@ -1,0 +1,11 @@
+Particle in a box energies:
+n =  1: exact =   9.869604, calc =   9.868809
+n =  2: exact =  39.478418, calc =  39.465687
+n =  3: exact =  88.826440, calc =  88.762003
+n =  4: exact = 157.913670, calc = 157.710064
+n =  5: exact = 246.740110, calc = 246.243168
+n =  6: exact = 355.305758, calc = 354.275666
+n =  7: exact = 483.610616, calc = 481.703042
+n =  8: exact = 631.654682, calc = 628.402018
+n =  9: exact = 799.437956, calc = 794.230674
+n = 10: exact = 986.960440, calc = 979.028580
