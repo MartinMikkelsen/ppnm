@@ -24,8 +24,8 @@ solution1.ppl: solu1.txt Makefile
 	@echo 'set ylabel "$$y$$"'								>> $@
 	@echo 'set title "Numerical integration of $$y^{\prime\prime} = 2(x²/2-1/2)y$$ with $$y(0) = 1, y^{\prime}(0) = 0$$ "'	>> $@
 	@echo 'plot \\'																								>> $@
-	@echo '"solu1.txt" using 1:2 w l lw 1 color red   title "$$y_0 = u$$" 				\\'>> $@
-	@echo ',"solu1.txt" using 1:3 w l lw 1 color cyan  title "$$y_1 = u^{\prime}$$" 	\\'>> $@
+	@echo '"solu1.txt" using 1:2 w l lw 2 color red   title "$$y_0 = u$$" 				\\'>> $@
+	@echo ',"solu1.txt" using 1:3 w l lw 2 color green  title "$$y_1 = u^{\prime}$$" 	\\'>> $@
 
 
 SIR_model_1.pdf: SIR_model_1.ppl
