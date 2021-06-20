@@ -3,8 +3,11 @@ CFLAGS = -Wall -O1 -std=gnu11
 CFLAGS += $(shell gsl-config --cflags)
 LDLIBS += $(shell gsl-config --libs)
 
-all: solution1.pdf SIR_model_1.pdf SIR_model_2.pdf SIR_model_3.pdf
+all: solution1.pdf SIR_model_1.pdf SIR_model_2.pdf SIR_model_3.pdf Threebody-problem.pdf
 	@echo
+	@echo 'The example is shown in figure solution1.pdf'
+	@echo 'SIR models are called SIR_model_i.pdf'
+	@echo 'The eight figure solution is shown in figure Threebody-problem.pdf'
 	@echo 'Changeing Tc will drastically impact the behavoir of the functions'
 
 
@@ -73,7 +76,22 @@ SIR_model_3.ppl: sir_model_3.txt Makefile
 	@echo ',"sir_model_3.txt" using 1:3 w l lw 2 color green title "Infectious $$(I)$$" 	\\'>> $@
 	@echo ',"sir_model_3.txt" using 1:4 w l lw 2 color blue title "Removed $$(R)$$" 	 	\\'>> $@
 
-solu1.txt sir_model_1.txt sir_model_2.txt sir_model_3.txt: main
+Threebody-problem.pdf: Threebody-problem.ppl
+				pyxplot $< 1> /dev/null
+
+Threebody-problem.ppl: threebody.txt Makefile
+	@echo 'set terminal pdf dpi 600'						>  $@
+	@echo 'set output "Threebody-problem.pdf"'							>> $@
+	@echo 'set key outside' 								>> $@
+	@echo 'set ylabel "$$y(t)$$"'		>> $@     		
+	@echo 'set xlabel "$$x(t)$$"'				>> $@      		
+	@echo 'set title "Threebody problem -- eight shaped curve"'	>> $@	
+	@echo 'plot \\'																								>> $@
+	@echo ' "threebody.txt" using 4:5 w l lw 2 color red title "$$m_1$$" 	\\'>> $@
+	@echo ', "threebody.txt" using 2:3 w l lw 3 lt 4 color green title "$$m_2$$" 	\\'>> $@
+	@echo ', "threebody.txt" using 6:7 w l lw 3 lt 3 color blue title "$$m_3$$" 	\\'>> $@
+
+solu1.txt sir_model_1.txt sir_model_2.txt sir_model_3.txt threebody.txt: main
 	./$<  > $@
 
 
