@@ -1,0 +1,14 @@
+∫ dx √(x) from 0 to 1 
+-------------------------------
+  Value (exact = 2/3)       : 0.6666809329
+  Absolute accurary goal    : 1.0e-04
+  Relative accurary goal    : 1.0e-04
+  Difference (value-exact)  : 0.0000142662
+-------------------------------
+∫ dx 4√(1-x²) from 0 to 1 
+-------------------------------
+  Value (exact = π)         : 3.1415975077
+  Absolute accurary goal    : 1.0e-04
+  Relative accurary goal    : 1.0e-04
+  Difference (value-exact)  : 0.0000048541
+-------------------------------

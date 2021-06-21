@@ -98,4 +98,4 @@ solu1.txt sir_model_1.txt sir_model_2.txt sir_model_3.txt threebody.txt: main
 main: main.o utilities.o Runge-Kutta.o
 
 clean:
-	$(RM) main *.o *.txt *.ppl *.pdf *.png ../util.o
+	$(RM) main *.o *.txt *.ppl *.pdf *.png utilities.o
