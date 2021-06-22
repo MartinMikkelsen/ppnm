@@ -40,8 +40,8 @@ int main()
         double exact = 2/3.;
         double I1 = integrate(Fa1,a,b,acc,eps);
         double diff = exact-I1;
-        printf("  Absolute accurary goal    : %.1e\n"   , acc);
-        printf("  Relative accurary goal    : %.1e\n"   , eps);
+        printf("  Absolute accuracy goal    : %.1e\n"   , acc);
+        printf("  Relative accuracy goal    : %.1e\n"   , eps);
         printf("-------------------------------\n");
         printf("∫ dx √(x) from 0 to 1 \n");
         printf("-------------------------------\n");
