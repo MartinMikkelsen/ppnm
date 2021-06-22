@@ -1,28 +1,38 @@
-CFLAGS = -Wall
+CC = gcc
+CFLAGS = -Wall -O1 -std=gnu11
 CFLAGS += $(shell gsl-config --cflags)
 LDLIBS += $(shell gsl-config --libs)
 
-all:Out.plot.pdf
 
-Out.plot.pdf: Out.data.txt Makefile
-	echo '\
-	set term pdfcairo noenhanced ;\
-	set title "Illustration of gsl_interp_eval and gsl_interp_eval_integ" ;\
-	set key left ;\
-	set xlabel "x" ;\
-	set ylabel "y" ;\
-	set out "$@" ;\
-	plot \
- "$<" index 0 with points pointtype 4 linecolor rgb "black" title "data" \
-,"$<" index 1 with points linecolor rgb "black" title "exact integral" \
-,"$<" index 2 using 1:2 with lines linecolor rgb "red" title "OUR linear-spline" \
-,"$<" index 3 using 1:2 with lines linecolor rgb "green" title "OUR integral-spline" \
-,"$<" index 4 using 1:2 with lines linecolor rgb "blue" title "GSL linear-spline" \
-,"$<" index 5 using 1:2 with lines linecolor rgb "black" title "GSL integral-spline" \
-	' | gnuplot
+all: linspline.pdf
 
-Out.data.txt: main
+
+output.txt: main
 	./$< > $@
 
 clean:
 	$(RM) Out* main
+
+linspline.pdf: linspline.ppl
+	pyxplot $< 1> /dev/null
+
+linspline.ppl: output.txt Makefile
+	@echo 'set terminal pdf dpi 600'						>  $@
+	@echo 'set output "lspline.pdf"'						>> $@
+	@echo 'set key outside' 								>> $@
+	@echo 'set grid'											>> $@
+	@echo 'set xlabel "$$x$$"'								>> $@
+	@echo 'set ylabel "$$y$$"'								>> $@
+	@echo 'set title "Linear Interpolation "'	>> $@
+	@echo 'plot \\'																								>> $@
+	@echo '"output.txt" index 2 using 1:2 w l lt 10 lw 4 color BrickRed  title "Linear spline" 			\\'>> $@
+	@echo ',"output.txt" index 3 using 1:2 w l lt 10 lw 4 color OliveGreen  title "Integral spline" 		\\'>> $@
+	@echo ',"output.txt" index 4 using 1:2 w l lt 5 lw 2 color Sepia  title "GSL linear spline" 		\\'>> $@
+	@echo ',"output.txt" index 5 using 1:2 w l lt 5 lw 2 color YellowGreen  title "GSL integral-spline" 	\\'>> $@
+	@echo ',"output.txt" index 1 using 1:2 w p pt 31 ps 0.75 color grey title "Exact integral" 	\\'>> $@
+	@echo ',"output.txt" index 0 using 1:2 w p pt 31 ps 0.75 color white  title "Data points" 		\\'>> $@
+
+main: main.o utilities.o lspline.o
+
+clean:
+	$(RM) main *.o *.txt *.ppl *.pdf *.png

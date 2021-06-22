@@ -7,8 +7,8 @@
 
 
 double linterp(int n, double x[], double y[], double z);
-double linterp_int(int n, double x[], double y[], double z);
 
+double linterp_int(int n, double x[], double y[], double z);
 
 int main() 
 {
