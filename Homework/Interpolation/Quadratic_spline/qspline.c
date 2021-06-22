@@ -1,49 +1,81 @@
 #include <stdlib.h>
 #include <assert.h>
-#include "qspline.h"
+#include<stdio.h>
+#include<math.h>
+#include<gsl/gsl_vector.h>
 
-typedef struct {int n; double *x, *y, *b, *c;} qspline;
+typedef struct {int n; double* x, *y, *b, *c;} qspline;
 
-qspline* qspline_alloc(int n,double* x,double* y){ //builds qspline
-	qspline* s = malloc(sizeof(qspline));//spline
-	s->b = malloc((n-1)*sizeof(double));  // b_i
-	s->c = malloc((n-1)*sizeof(double));  // c_i
-	s->x = malloc(n*sizeof(double));      // x_i
-	s->y = malloc(n*sizeof(double));      // y_i
+qspline* qspline_alloc(int n, double* x, double* y)
+{
+    qspline *s = (qspline*)malloc(sizeof(qspline));
+	s->b = (double*)malloc((n-1)*sizeof(double));
+	s->c = (double*)malloc((n-1)*sizeof(double));
+	s->x = (double*)malloc(n*sizeof(double));
+	s->y = (double*)malloc(n*sizeof(double));
 	s->n = n;
-	for(int i=0;i<n;i++){
+
+	int i=0;
+	for(i=0;i<n;i++){
 		s->x[i]=x[i];
 		s->y[i]=y[i];
 	}
-	int i;
-	double p[n-1], h[n-1];                  //VLA from C99
-	for(i=0;i<n-1;i++){
-		h[i]=x[i+1]-x[i];
-		p[i]=(y[i+1]-y[i])/h[i];
+	double dy[n-1], dx[n-1];
+	for (i=0;i<n-1;i++){
+		dx[i]=x[i+1]-x[i];
+		dy[i]=(y[i+1]-y[i])/dx[i];
 	}
-	s->c[0]=0;                                     //recursion up:
-	for(i=0;i<n-2;i++)
-		s->c[i+1]=(p[i+1]-p[i]-s->c[i]*h[i])/h[i+1];
-	s->c[n-2]/=2;                                 //recursion down:
-	for(i=n-3;i>=0;i--)
-		s->c[i]=(p[i+1]-p[i]-s->c[i+1]*h[i+1])/h[i];
-	for(i=0;i<n-1;i++)
-		s->b[i]=p[i]-s->c[i]*h[i];
-	return s;
+	s->c[0]=0;
+	for (i=0;i<n-2;i++){
+		s->c[i+1]=(dy[i+1]-dy[i]-s->c[i]*dx[i])/dx[i+1];
+	}
+	s->c[n-2]/=2;
+	for (i=n-3;i>=0;i--){
+		s->c[i]=(dy[i+1]-dy[i]-s->c[i+1]*dx[i+1])/dx[i];
+	}
+	for (i=0;i<n-1;i++){
+		s->b[i]=dy[i]-s->c[i]*dx[i];
+
+	}
+return s;
 }
 
-double qspline_eval(qspline *s, double z){     //evaluates s(z)
-	assert(z>=s->x[0] && z<=s->x[s->n-1]);
-	int i=0, j=s->n-1;                     //binary search:
-	while(j-i>1){
-		int m=(i+j)/2;
-		if(z>s->x[m]) i=m;
-		else j=m;
-	}
-	double h=z-s->x[i];
-	return s->y[i]+h*(s->b[i]+h*s->c[i]);
-}//inerpolating polynomial
+double qspline_eval(qspline *s, double input){
+	int i = binsearch(s->n,s->x,input);
+	double dx=input-s->x[i];
+	double output=s->y[i]+dx*(s->b[i]+dx*s->c[i]);
+return output;
+}
 
-void qspline_free(qspline *s){ //free the allocated memory
-	free(s->x); free(s->y); free(s->b); free(s->c); free(s);
+
+double qspline_integ(qspline *s, double input)
+{
+	int i = binsearch(s->n,s->x,input);
+	double output = 0;
+	double dx=0;
+	for (int p=1;p<=i;p++){
+		dx=s->x[p]-s->x[p-1];
+		output+=dx*(s->y[p-1]+dx*(s->b[p-1]/2+dx*s->c[p-1]/3));
+	}
+	dx=input-s->x[i];
+	output+=dx*(s->y[i]+dx*(s->b[i]/2+dx*s->c[i]/3));
+
+return output;
+}
+
+double qspline_deriv(qspline* s, double x_new)
+{
+   int i = binsearch(s->n, s->x, x_new);
+
+   double deriv = s->b[i] + 2*(s->c[i])*(x_new - s->x[i]);
+   return deriv;
+}
+
+void qspline_free(qspline *s)
+{
+	free(s->x);
+	free(s->y);
+	free(s->b);
+	free(s->c);
+	free(s);
 }

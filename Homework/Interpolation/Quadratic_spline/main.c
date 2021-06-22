@@ -3,65 +3,57 @@
 #include <math.h>
 #include <gsl/gsl_interp.h>
 #include <assert.h>
-#include"utilities.h"
 
+typedef struct {
+   int n;      // number of data points
+   double* x;  // arrays
+   double* y;  // .
+   double* b;  // .
+   double* c;  // .
+} qspline;
 
-double linterp(int n, double x[], double y[], double z);
-
-double linterp_int(int n, double x[], double y[], double z);
+qspline* qspline_alloc(int n, double* x, double* y);
+double qspline_integ(qspline *s, double input);
+double qspline_eval(qspline *s, double input);
+double qspline_deriv(qspline* s, double x_new);
+void qspline_free(qspline *s);
 
 int main() 
 {
-	int n=15;
-	double a=-2,b=2,x[n],y[n];
+    int n=20;
+	double x[n],y[n];
 
-	for(int i=0;i<n;i++){
-		x[i]=a+(b-a)*i/(n-1);
-		y[i]=1/(1+pow(x[i],2));
+	for(int i=0;i<n;i++)
+    {
+		x[i]=i;
+		y[i]=sin(i*i);
 	}
 
-	printf("# index 0: data\n");
+	printf("# index 0: Data points\n");
 	for(int i=0;i<n;i++) printf("%g %g\n",x[i],y[i]);
 	printf("\n\n");
-	
-	printf("# index 1: exact integral\n");
-	for(int i=0;i<n;i++) printf("%g %g\n",x[i],atan(x[i])-atan(x[0]));
+
+    printf("# index 1: Interpolations\n");
+    qspline* s = qspline_alloc(n, x, y);
+        
+	double dz=0.1;
+	for(double z=x[0];z<=x[n-1];z+=dz){
+		double qz=qspline_eval(s,z);
+		printf("%g %g\n",z,qz);       
+    }     
 	printf("\n\n");
-
-	gsl_interp* linear = gsl_interp_alloc(gsl_interp_linear    ,n);
-	gsl_interp_init(linear,x,y,n);
-	
-	double z=1.0/5;
-	printf("# index 2: interpolations\n");
-
-	for(double i=x[0];i<=x[n-1];i+=z){
-		printf("%g %g\n",i,linterp(n,x,y,i));
-      	}	
-  	
-	printf("\n\n");
-	
-	printf("# index 3: integral\n");
-	for(double i=x[0];i<=x[n-1];i+=z){
-		printf("%g %g\n",i,linterp_int(n,x,y,i));
-	}
-
-	printf("\n\n");
-
-//CODE TO COMPARE
-//
-	printf("# index 4: interpolations\n");
-	for(double z=x[0];z<=x[n-1];z+=1./16){
-		double interp_l=gsl_interp_eval(linear    ,x,y,z,NULL);
-		printf("%g %g\n",z,interp_l);
+    printf("# index 2: Integral\n");
+	for(double z=x[0];z<=x[n-1];z+=dz){
+		double integ=qspline_integ(s,z);
+		printf("%g %g\n",z,integ);
 	}
 	printf("\n\n");
+    printf("# index 2: Derivative\n"); 
+	for(double z=x[0];z<=x[n-1];z+=dz){
+		double deriv=qspline_deriv(s,z);
+		printf("%g %g\n",z,deriv);
+    }
 
-	printf("# index 5: integrals\n");
-	for(double z=x[0];z<=x[n-1];z+=1./16){
-		double integ_int=gsl_interp_eval_integ(linear    ,x,y,x[0],z,NULL);
-		printf("%g %g\n",z,integ_int);
-	}
-
-	gsl_interp_free(linear);
+    qspline_free(s);
 return 0;
 }

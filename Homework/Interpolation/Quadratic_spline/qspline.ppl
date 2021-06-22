@@ -1,0 +1,12 @@
+set terminal pdf dpi 600
+set output "qspline.pdf"
+set key outside
+set grid
+set xlabel "$x$"
+set ylabel "$y$"
+set title "Quadratic Interpolation "
+plot \
+"output.txt" index 0 using 1:2 w p pt 31 ps 0.75 color grey title "Data points" 		\
+,"output.txt" index 1 using 1:2 w l lt 1 lw 1 ps 0.75 color black  title "Interpolation" 		\
+,"output.txt" index 2 using 1:2 w l lt 5 lw 1 ps 0.75 color Cyan  title "Integral" 		\
+,"output.txt" index 3 using 1:2 w l lt 6 lw 1 ps 0.75 color Mahogany  title "Derivative" 		\

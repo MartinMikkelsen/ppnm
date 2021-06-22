@@ -1,10 +1,10 @@
 #include<stdio.h>
 #include<assert.h>
 #include<math.h>
+#include<assert.h>
 #include<gsl/gsl_matrix.h>
 #include<gsl/gsl_blas.h>
 #include<gsl/gsl_vector.h>
-#include"utilities.h"
 
 
 double dot(gsl_vector* x, gsl_vector* y){
@@ -58,21 +58,21 @@ int binsearch_vector(gsl_vector* x, double x_new) {
 }
 
 // binary search for plain c array
-int binsearch(int N, double* x, double x_new) {
-	assert(x[0] <= x_new && x_new <= x[N-1]);
-	int i = 0;
-   int j = N-1;
 
-	while (j-i > 1) {
-		int mid = (i + j)/2;
-		if (x_new > x[mid]) {
-         i = mid;
-      } else {
-         j = mid;
-      }
-   }
 
-	return i;
+int binsearch(int n, double* x, double input){
+    assert(n>1 && input<=x[n-1] && input>=x[0]);
+    int i=0, j=n-1, m=0; // setting up for binary search for intervals
+    while(j-i>1){
+	m=(i+j)/2;
+
+	if(input<x[m]){
+		j=m;
+	}else{
+		i=m;
+	}
+}
+return i;
 }
 
 double funs(int i, double x){
