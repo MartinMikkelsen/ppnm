@@ -1,4 +1,35 @@
-integrating sqrt(x)<0.9*0.9?1:0 with N=10000000
-pseudo-random:
-integral = 0.656004 error estimate = 0.000150
-exact    = 0.540000 actual error   = 0.116004
+-------------------------------
+∫ dx √(x) from 0 to 1 using plain Monte Carlo 
+Value = 0.6666964331 
+Error = 0.0000745315 
+Exact = 0.6666666667 
+Diff  = -0.0000297664 
+-------------------------------
+-------------------------------
+∫ dx 4√(1-x²) from 0 to 1 using plain Monte Carlo 
+Value = 3.1414518425 
+Error = 0.0002823791 
+Exact = 3.1415926536 
+Diff  = 0.0001408110 
+-------------------------------
+-------------------------------
+∫ dx/√(x) from 0 to 1 using plain Monte Carlo 
+Value = 1.9999946112 
+Error = 0.0011205773 
+Exact = 2.0000000000 
+Diff  = 0.0000053888 
+-------------------------------
+-------------------------------
+∫ ln(x)/√(x) from 0 to 1 using plain Monte Carlo 
+Value = -3.9819817042 
+Error = 0.0116220564 
+Exact = -4.0000000000 
+Diff  = -0.0180182958 
+-------------------------------
+-------------------------------
+1/π³ ∫ dxdydz ([1-cos(x)cos(y)cos(z)]-1) from 0 to π using plain Monte Carlo 
+Value = 1.3924514913 
+Error = 0.0040674478 
+Exact = 1.3932039297 
+Diff  = 0.0007524384 
+-------------------------------

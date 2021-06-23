@@ -12,7 +12,8 @@ void randomx(int dim, double* a, double* b, double* x)
     }
 }
 
-complex plainmc(int dim,double f(int dim,double* x),double* a,double* b,int N){
+void plainmc(int dim,double f(int dim,double* x),double* a,double* b,int N, double* result, double* error)
+{
 	double V=1; for(int i=0;i<dim;i++)V*=b[i]-a[i];
 	double sum=0,sum2=0,x[dim];
 	for(int i=0;i<N;i++){
@@ -21,9 +22,10 @@ complex plainmc(int dim,double f(int dim,double* x),double* a,double* b,int N){
 		sum+=fx;
 		sum2+=fx*fx;
 		}
-	double mean=sum/N, sigma=sqrt(sum2/N-mean*mean);
-	complex result=mean*V+I*sigma*V/sqrt(N);
-	return result;
+	double mean=sum/N;
+    double sigma=sqrt(sum2/N-mean*mean);
+	*result = mean*V;
+    *error = sigma*V/sqrt(N);
 }
 
  
