@@ -15,8 +15,8 @@ errorscaling.ppl: errorscaling.txt Makefile
 	@echo 'set output "errorscaling.pdf"'						>> $@
 	@echo 'set key outside' 								>> $@
 	@echo 'set grid'											>> $@
-	@echo 'set xlabel "$$ln(N)$$"'								>> $@
-	@echo 'set ylabel "ln(Error)"'								>> $@
+	@echo 'set xlabel "$$\ln(N)$$"'								>> $@
+	@echo 'set ylabel "$$\ln$$(Error)"'								>> $@
 	@echo 'set title "Error($$N$$) for $$\int_{0}^{1}$$ d$$x \, 4\sqrt{1-x²} $$"'	>> $@
 	@echo 'plot \\'																								>> $@
 	@echo '"errorscaling.txt" using (ln($$1)):(ln($$2)) w l lw 2 color BrickRed   title "Psuedo" 				\\'>> $@
