@@ -1,16 +1,15 @@
-# ppnm
 
 <h1>Practical programming and numerical methods</h1>	
 Practical programming and numerical methods -- spring 2021. 
 
 1. Interpolation
-    A. Linear spline
-    B. Quadratic spline
-    C. Cubic spline
+    1. Linear spline
+    2. Quadratic spline
+    3. Cubic spline
 2. Linear equations
-    A. QR-decomposition by modified Gram-Schmidt orthogonalization
-    B. Matrix inverse by Gram-Schmidt QR factorization
-    C. Operations count for QR-decomposition and comparison with GSL
+    1. QR-decomposition by modified Gram-Schmidt orthogonalization
+    2. Matrix inverse by Gram-Schmidt QR factorization
+    3. Operations count for QR-decomposition and comparison with GSL
 3. Least squares
     1. Ordinary least-squares fit by QR-decomposition
     2. Uncertainties of the fitting coefficients
