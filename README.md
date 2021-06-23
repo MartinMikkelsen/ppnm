@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-
-=======
 <h1>Practical programming and numerical methods</h1>	
 Practical programming and numerical methods -- spring 2021. 
 
