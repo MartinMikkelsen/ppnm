@@ -11,7 +11,7 @@ all: output.txt
 output.txt: main
 	./$< > $@
 
-main: main.o MonteCarlo.o Recursive_Adaptive_Integrator.o
+main: main.o MonteCarlo.o 
 
 clean:
 	$(RM) main *.o *.txt *.ppl *.pdf *.png 
