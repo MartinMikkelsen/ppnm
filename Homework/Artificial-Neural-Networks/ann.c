@@ -3,6 +3,12 @@
 #include<math.h>
 #include"ann.h"
 
+double activationfunc1(double x){return x*exp(-x*x);}
+double f_deriv(double x){return exp(-x*x)*(1-2*pow(x,2));}
+double f_int(double x){return (-1)*exp(-x*x)/2;}
+
+int n, startPoint;
+
 ann* ann_alloc(int n,double(*f)(double)){
 	ann* network = malloc(sizeof(ann));
 	network->n=n;
@@ -25,6 +31,31 @@ double ann_response(ann* network,double x){
 	}
 	return s;
 }
+
+double ann_feedDeriv(ann* network,double x)
+{
+	double sum = 0;
+	for(int i=0; i<network->n; i++){
+		double a = gsl_vector_get(network->params,3*i+0);
+		double b = gsl_vector_get(network->params,3*i+1);
+		double w = gsl_vector_get(network->params,3*i+2);
+		sum += f_deriv((x-a)/b)*w/b;
+		}
+	return sum;
+}
+double ann_feedInt(ann* network,double x)
+{
+	double sum = 0;
+	for(int i=0; i<network->n; i++){
+		double a = gsl_vector_get(network->params,3*i+0);
+		double b = gsl_vector_get(network->params,3*i+1);
+		double w = gsl_vector_get(network->params,3*i+2);
+		sum += f_int((x-a)/b)*b*w;
+		sum -= f_int((startPoint-a)/b)*b*w;
+		}
+	return sum;
+}
+
 
 int qnewton(double F(gsl_vector* x), gsl_vector*x, double acc);
 
