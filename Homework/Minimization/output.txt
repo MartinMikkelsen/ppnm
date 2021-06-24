@@ -1,18 +1,31 @@
 
-MINIMIZATION OF ROSENBROCK'S FUNCTION
-start point   :       18        15 
-value(start)  : 9.54839e+06
-minimum found :        1         1 
-steps         : 119
-value(min)    : 3.31884e-11
-acc           : 1.0e-03
-gradient(min) :-4.63e-05  2.19e-05 
+===============================================
 
-MINIMIZATION OF HIMMELBLAU'S FUNCTION
-start point   :       18        15 
-value(start)  : 163280
-steps         : 11
-minimum       :    -3.78     -3.28 
-value(min)    : 3.24263e-11
-acc           : 1.0e-03
-gradient(min) : 3.24e-05 -7.34e-05 
+Minimization of Rosenbrock's valley function
+
+          f(x,y)=(1-x)²+100(y-x²)²
+
+-----------------------------------------------
+Starting point, x0    :     3.14         6 
+Initial value, f(x0)  : 1501.97
+Minimum found, xmin   :        1         1 
+Done in 31 steps 
+Value at min, f(xmin) : 7.31705e-11
+Accuracy goal         : 1.0e-03
+Gradient(min)         :-0.000316  0.000165 
+
+===============================================
+
+Minimization of Himmelblau's function
+
+          f(x,y)=(x²+y-11)²+(x+y²-7)²
+
+-----------------------------------------------
+Starting point, x0    :     9.87        12 
+Initial value, f(x0)  : 31255
+Minimum found, xmin   :     3.58     -1.85 
+Done in 10 steps 
+Value at min, f(xmin) : 4.96426e-10
+Gradient(min)         :-0.000199 -0.000145 
+
+-----------------------------------------------

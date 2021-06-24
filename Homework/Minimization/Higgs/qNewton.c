@@ -96,6 +96,5 @@ gsl_vector_free(gz);
 gsl_vector_free(y);
 gsl_vector_free(u);
 gsl_vector_free(a);
-fprintf(stderr,"qnewton: nsteps=%i ngood=%i nbad=%i fx=%.1e\n",nsteps,ngood,nbad,fx);
 return nsteps;
 }
