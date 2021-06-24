@@ -1,0 +1,18 @@
+
+MINIMIZATION OF ROSENBROCK'S FUNCTION
+start point   :       18        15 
+value(start)  : 9.54839e+06
+minimum found :        1         1 
+steps         : 119
+value(min)    : 3.31884e-11
+acc           : 1.0e-03
+gradient(min) :-4.63e-05  2.19e-05 
+
+MINIMIZATION OF HIMMELBLAU'S FUNCTION
+start point   :       18        15 
+value(start)  : 163280
+steps         : 11
+minimum       :    -3.78     -3.28 
+value(min)    : 3.24263e-11
+acc           : 1.0e-03
+gradient(min) : 3.24e-05 -7.34e-05 
