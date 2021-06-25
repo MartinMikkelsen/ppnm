@@ -1,5 +1,5 @@
 <h1>Practical programming and numerical methods</h1>	
-Practical programming and numerical methods -- spring 2021. 
+Practical programming and numerical methods -- spring 2021. The folder "Exam" contains my solution to exam problem number 5: Adaptive 1D integrator with random nodes. The folder "Homeworks" containts solutions to (most) of  problems listed below. The folder "Lectures" containts various bits from the lectures and should generally be ignored. 
 
 1. Interpolation
     1. Linear spline
