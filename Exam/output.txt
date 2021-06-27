@@ -1,0 +1,6 @@
+∫ dx √(x) from 0 to 1 using strata =0.8
+a = {0,0} b = {1,1}
+acc = 0.001 eps = 0.001
+
+integ = 0.665024 error-estimate = 0.00166502
+exact = 0.666667 actual-error   = 0.00164252

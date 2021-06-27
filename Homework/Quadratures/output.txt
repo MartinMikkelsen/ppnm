@@ -1,5 +1,5 @@
-  Absolute accurary goal    : 1.0e-04
-  Relative accurary goal    : 1.0e-04
+  Absolute accuracy goal    : 1.0e-04
+  Relative accuracy goal    : 1.0e-04
 -------------------------------
 ∫ dx √(x) from 0 to 1 
 -------------------------------
