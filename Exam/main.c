@@ -2,6 +2,13 @@
 #include<stdlib.h>
 #include<math.h>
 #include<assert.h>
+#include <stdlib.h>
+#include <gsl/gsl_math.h>
+#include <gsl/gsl_monte.h>
+#include <gsl/gsl_monte_plain.h>
+#include <gsl/gsl_monte_miser.h>
+#include <gsl/gsl_monte_vegas.h>
+
 #define SQR2 1.41421356237309504880
 #define R 0.8
 
@@ -54,7 +61,7 @@ double a[]={0,0},b[]={1,1},acc=1e-3,eps=1e-3;
     double error;
     double result2;
     double error2;
-    double N=1e3;
+    double N=1e6;
 	int dim=sizeof(a)/sizeof(a[0]);
 	double integ=strata(dim,Fa2,a,b,acc,eps,1e6,1e6);
     plainmc(dim, Fa2, a, b, N, &result, &error);
@@ -69,19 +76,21 @@ double a[]={0,0},b[]={1,1},acc=1e-3,eps=1e-3;
 	printf("Using adaptive 1D integrator with random nodes\n");
 	printf("Value       = %.10f\n",integ);
     printf("Error est.  = %.10f\n", acc+fabs(integ)*eps);
-    printf("Diff        = %.10f\n",exact-integ);
+    printf("Diff        = %.10f\n",fabs(exact-integ));
     printf("Using n_reuse       = %g\n",1e6);
     printf("Using mean_reuse    = %g\n",1e6);
     printf("------------------------------------------------------------\n");
     printf("Using plain Monte Carlo \n");
     printf("Value       = %.10f \n", result);
     printf("Error       = %.10f \n", error);
-    printf("Diff        = %.10f \n", exact-result);
+    printf("Diff        = %.10f \n", fabs(exact-result));
+    printf("Using  N    = %g\n",N);
     printf("------------------------------------------------------------\n");
     printf("Using pseudo Monte Carlo \n");
     printf("Value       = %.10f \n", result2);
     printf("Error       = %.10f \n", error2);
     printf("Diff        = %.10f \n", exact-result2);
+    printf("Using  N    = %g\n",N);
     }
     {
     double a = 0.;
@@ -91,7 +100,7 @@ double a[]={0,0},b[]={1,1},acc=1e-3,eps=1e-3;
     printf("------------------------------------------------------------\n");
     printf("Using recursive adaptive integrator \n");
     printf("Value       = %.10f\n"  , I1);
-    printf("Diff        = %.10f\n"  , diff);
+    printf("Diff        = %.10f\n"  , fabs(diff));
     printf("------------------------------------------------------------\n");
     }
     {
@@ -101,8 +110,34 @@ double a[]={0,0},b[]={1,1},acc=1e-3,eps=1e-3;
     double diff = exact-I3;
     printf("Using Clenshaw–Curtis transformation\n");
     printf("Value       = %.10f\n"  , I3);
-    printf("Diff        = %.10f\n"  , -diff);
+    printf("Diff        = %.10f\n"  , fabs(-diff));
     printf("------------------------------------------------------------\n");
+    }
+    {
+    double res, err;
+
+    double xl[1] = { 0 };
+    double xu[1] = { 1 };
+
+    const gsl_rng_type *T;
+    gsl_rng *r;
+
+    gsl_monte_function G = { &Fa2, 1, 0 };
+
+    size_t calls = 500000;
+
+    gsl_rng_env_setup ();
+
+    T = gsl_rng_default;
+    r = gsl_rng_alloc (T);
+
+    gsl_monte_miser_state *s = gsl_monte_miser_alloc(1);
+    gsl_monte_miser_integrate (&G, xl, xu, 1, calls, r, s,
+                               &res, &err);
+    gsl_monte_miser_free (s);    
+    printf("Using GSL MISER\n");
+    printf("Value       = %.10f\n"  , res);
+    printf("Error       = %.10f\n"  , err);
     }
 
 return 0;
