@@ -1,6 +1,31 @@
-∫ dx √(x) from 0 to 1 using strata =0.8
-a = {0,0} b = {1,1}
-acc = 0.001 eps = 0.001
-
-integ = 0.665024 error-estimate = 0.00166502
-exact = 0.666667 actual-error   = 0.00164252
+------------------------------------------------------------
+∫ dx 4√(1-x²) from 0 to 1 using different methods
+The exact value of the integral is π
+Absolute accuracy goal    : 1.0e-03
+Relative accuracy goal    : 1.0e-03
+------------------------------------------------------------
+Using adaptive 1D integrator with random nodes
+Value       = 3.1377600027
+Error est.  = 0.0041377600
+Diff        = 0.0038326509
+Using n_reuse       = 1e+06
+Using mean_reuse    = 1e+06
+------------------------------------------------------------
+Using plain Monte Carlo 
+Value       = 3.1622206731 
+Error       = 0.0287167591 
+Diff        = -0.0206280195 
+------------------------------------------------------------
+Using pseudo Monte Carlo 
+Value       = 3.1678003623 
+Error       = 0.0405410892 
+Diff        = -0.0262077087 
+------------------------------------------------------------
+Using recursive adaptive integrator 
+Value       = 3.1418345780
+Diff        = -0.0002419244
+------------------------------------------------------------
+Using Clenshaw–Curtis transformation
+Value       = 3.1411625005
+Diff        = -0.0004301531
+------------------------------------------------------------

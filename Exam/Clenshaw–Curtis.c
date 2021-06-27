@@ -7,9 +7,9 @@
 
 double intrun(double f(double),double f2, double f3, double a, double b, double acc, double eps, double nrec);
 
-static double A,B; // not accessible from other files
+static double A,B;
 
-static double F(double f(double),double t){ // auxilliary function for Clenshaw-Curtis
+static double F(double f(double),double t){ 
 	return f( (A+B)/2+(A-B)/2*cos(t) )*sin(t)*(B-A)/2;
 	}
 
