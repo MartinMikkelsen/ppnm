@@ -12,6 +12,8 @@ In this exam project I compare my implementation of the Stratified Sampling Algo
 
 I the main.c I have included some different integrals, but the output.txt prints data using 
 
-<img src="https://latex.codecogs.com/gif.latex?\int_{0}^{1} dx 4\sqrt{1-x²} = \pi " />,
-
+```math
+\int_{0}^{1} dx 4\sqrt{1-x²} = \pi
+```
 by default
+
