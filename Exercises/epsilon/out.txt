@@ -1,0 +1,61 @@
+
+
+
+################## Exercise 1 #################
+Exercise 1.i:
+
+My value of i for the "while" loop is 2147483647:
+My value of i for the "for" loop is 2147483647:
+My value of i for the "do-while" loop is 2147483647:
+The value of INT_MAX in limits.h is 2147483647:
+
+
+Exercise 1.ii
+
+My value of i for the "while" loop is -2147483648:
+My value of i for the "for" loop is -2147483648:
+My value of i for the "do-while" loop is -2147483648:
+The value of INT_MAX in limits.h is -2147483648:
+
+
+Exercise 1.iii
+
+The double x= 2.22045e-16
+The float x= 1.19209e-07
+The long double x= 1.0842e-19
+FLT_EPSILON: 1.19209e-07 
+DBL_EPSILON: 2.22045e-16 
+LDBL_EPSILON: 1.0842e-19 
+for loop for double e= 2.22045e-16
+for loop for float e= 1.19209e-07
+for loop for long double e= 1.0842e-19
+do while loop for double ex = 2.22045e-16
+do while loop for float ex = 1.19209e-07
+do while loop for long double ex = 1.0842e-19
+
+
+
+################## Exercise 2 #################
+max=71582 
+The sum_up_float becomes: 11.755919 
+The sum_down_float becomes: 11.755833 
+The sum_up_double is: 11.755808 
+The sum_down_double is: 11.755822 
+The sum_up_float for the for loop is: 11.755919 
+The sum_down_float for the for loop is: 11.755833 
+The sum_up_double for the for loop is: 11.755808 
+The sum_down_double for the for loop is: 11.755822 
+The sum_up_double for the do while loop is: 11.755808 
+The sum_down_double for the do while loop is: 11.755822 
+The sum_up_float for the do while loop is: 11.755919 
+The sum_down_float for the do while loop is: 11.755833 
+
+
+
+################## Exercise 3 #################
+The return value of the function is: 0
+
+
+
+################## Exercise 4 #################
+Not a digit. 
