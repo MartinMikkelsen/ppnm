@@ -1,0 +1,14 @@
+---------------------------
+The fit is given by:
+4.95867*x^0-0.171379*x^1
+
+The value of c1 is -0.171379.
+ 
+The estimation of the value for the half-life is 4.04452 days +/- 0.202226 days =  [4.24674 3.84229] days
+
+The correct value is 3.6319 days. The two half-lives do not agree.
+
+The covariance matrix is
+
+    [	0.0009	-9e-05
+	-9e-05	1e-05	]

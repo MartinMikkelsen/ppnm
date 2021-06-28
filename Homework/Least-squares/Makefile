@@ -3,39 +3,32 @@ LDLIBS +=  $(shell gsl-config --libs)
 CFLAGS  =  -lm -Wall -std=gnu11
 
 CC   	=  gcc
-PIPE    =  cat
-INPUT   =  data.txt
-OUTPUT  =  plot.pdf
-EXE   	=  main
-OBJ  	=  main.o GramSchmidt.o utilities.o lsfit.o
-HDRS    =  GramSchmidt.h utilities.h lsfit.h
-IMGFL   =  plot.pdf
-TXT     =  output.txt
 
-.PHONEY: default
+default: output.txt fit.pdf
+	cat $<
 
-plot.pdf: plot.ppl
-	pyxplot $< 1> /dev/null 
 
-plot.ppl: data.txt Makefile
-	@echo 'set terminal pdf dpi 600'						>  $@ 
-	@echo 'set output "plot.pdf"'							>> $@           		
-	@echo 'set key outside' 								>> $@           		
-	@echo 'set grid'										>> $@           		
-	@echo 'set xlabel "Time [s]"'						>> $@      		
-	@echo 'set ylabel "Activity [percent]"'				>> $@     		
-	@echo 'set title "Measurements with error bars"'			>> $@	
-	@echo 'plot \\'											>> $@
-	@echo ' "data.txt" using 1:2:3 with yerrorbars color black title "Measurements" 	\\'>> $@
-	
-Out.data.text:main
-		./$< 1>$@ 2>log
+fit.pdf: fit.ppl
+	pyxplot $< 1> /dev/null
 
-logdata.txt: main
-		./$< 1>$@ Out.data.text
+fit.ppl: fitparams.txt Makefile
+	@echo 'set terminal pdf dpi 600'						>  $@
+	@echo 'set output "fit.pdf"'						>> $@
+	@echo 'set key outside' 								>> $@
+	@echo 'set grid'											>> $@
+	@echo 'set xlabel "$$\log(t)$$"'								>> $@
+	@echo 'set ylabel "$$\log(y)$$"'								>> $@
+	@echo 'set title "Fit with errors"'	>> $@
+	@echo 'plot \\'																								>> $@
+	@echo '"fitparams.txt" index 1 using 1:2 w l lt 1 lw 2 color OliveGreen  title "Fit" 		\\'>> $@
+	@echo ',"fitparams.txt" index 2 using 1:2 w l lt 5 lw 2 color Cyan  title "Fit$$+5\%$$ " 		\\'>> $@
+	@echo ',"fitparams.txt" index 3 using 1:2 w l lt 5 lw 2 color Cyan  title "Fit$$-5\%$$ " 		\\'>> $@
+	@echo ',"fitparams.txt" index 0 using 1:2:3 with yerrorbars color BrickRed  title "Data" 			\\'>> $@
 
+output.txt: main
+	./$< > $@
 
 main: main.o GramSchmidt.o utilities.o lsfit.o
 
 clean:
-	$(RM) $(TXT) $(OUTPUT) $(OBJ) $(IMGFL)
+	$(RM) main *.o *.txt *.ppl *.pdf *.png
