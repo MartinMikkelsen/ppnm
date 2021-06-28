@@ -29,9 +29,9 @@ eigenfunctions.ppl: eigenfunctions.txt Makefile
 	@echo '"eigenfunctions.txt" using 1:3 w l lw 3 color red title "$$n=1$$; numerical "	 	\\'>> $@
 	@echo ',"eigenfunctions.txt" using 1:5 w l lw 3 color green title "$$n=2$$; numerical" 		\\'>> $@
 	@echo ',"eigenfunctions.txt" using 1:7 w l lw 3 color blue title "$$n=3$$; numerical" 		\\'>> $@
-	@echo ',"eigenfunctions.txt" using 1:2 w l lw 2 color black title "$$n=1$$" 	\\'>> $@	
-	@echo ',"eigenfunctions.txt" using 1:4 w l lw 2 color black title "$$n=2$$" 	\\'>> $@
-	@echo ',"eigenfunctions.txt" using 1:6 w l lw 2 color black title "$$n=3$$" 	\\'>> $@
+	@echo ',"eigenfunctions.txt" using 1:2 w l lt 5 lw 2 color black title "$$n=1$$" 	\\'>> $@	
+	@echo ',"eigenfunctions.txt" using 1:4 w l lt 5 lw 2 color black title "$$n=2$$" 	\\'>> $@
+	@echo ',"eigenfunctions.txt" using 1:6 w l lt 5 lw 2 color black title "$$n=3$$" 	\\'>> $@
 
 main: main.o GramSchmidt.o utilities.o Jacobi.o
 

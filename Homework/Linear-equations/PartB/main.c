@@ -16,25 +16,16 @@
 // Part A:  Solving linear equations using QR-decomposition by modified Gram-Schmidt orthogonalization
 //implement a function which performs Gram-Schmidt orthogonalization for nxm matrix A. 
 
-// Question 1) QR decomposition Gram-Schmidt algorithm (A <- Q)
 void GS_decomp(gsl_matrix* A, gsl_matrix* R);
 
-// Question 2) Solve QRx = b by back-substitution
 void GS_solve(gsl_matrix* Q, gsl_matrix* R, gsl_vector* b, gsl_vector* x);
-
-//Part B: Matrix inverse by Gram-Schmidt QR factorization
 
 void GS_inverse(gsl_matrix* Q, gsl_matrix* R, gsl_matrix* B);
 
 
 int main() { 
    
-   printf("====================\n");
-   printf("====   TASK B   ====\n");
-   printf("====================\n\n");
 
-
-   // initialize random square matrix A and empty matrix R
    int N = 4;   
    unsigned int SEED = time(NULL);
    srandom(SEED);
@@ -45,11 +36,9 @@ int main() {
       }
    }
 
-   // print original A matrix
    printf("This is the original A matrix:\n");
    matrix_print(A);
 
-   // do QR decomposition and check result
    gsl_matrix* R = gsl_matrix_alloc(N, N);
    GS_decomp(A, R);
 
@@ -58,7 +47,6 @@ int main() {
    printf("Q*R=A :\n");
    matrix_print(QR);
 
-   // Initialize empty matrix B and find inverse
    gsl_matrix* B = gsl_matrix_alloc(N, N);
    GS_inverse(A, R, B);
 
@@ -75,7 +63,6 @@ int main() {
    printf("B*A:\n");
    matrix_print(BA);  
 
-   // free memory
    gsl_matrix_free(A);
    gsl_matrix_free(R);
    gsl_matrix_free(QR);
