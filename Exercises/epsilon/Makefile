@@ -1,16 +1,14 @@
 CC = gcc
-CFLAGS = -Wall -fwrapv -O
+CFLAGS = -O #-std=gnull
+CFLAGS += -Wall
+LDFLAGS = -I.
+LDLIBS = -lm
 
-.PHONEY: default
-default: out.txt
-	cat $<
-
-out.txt: main
-	./$< > $@
-
-main: main.c tau.c
-	$(CC) main.c tau.c -o main 
-.PHONEY: clean
+out.txt : epsilon
+	time ./$< > $@
+epsilon : epsilon.c epsilon2.c
+	$(CC) epsilon.c epsilon2.c -o epsilon
 
 clean:
-	$(RM) main out.txt
+	$(RM) out.txt epsilon
+

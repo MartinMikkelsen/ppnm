@@ -1,24 +1,25 @@
-CC = clang
-CFLAGS= -O -std=gnu11
-LDLIBS = -lm
+CC = gcc # the C compiler
+CFLAGS = -O -std=gnu11 # options for the C compiler
+LDLIBS = -lm # libraries to link
 
-default: out.txt
-	cat out.txt
+default: out.txt    # default target is to make out.txt
+	cat out.txt # show out.txt on the screen
 
-out.txt: hello
-	./hello > out.txt
+out.txt: hello            # out.txt needs hello
+	./hello > out.txt # run hello, output goes into out.txt
 
-hello: hello.o
-	$(CC) -o hello hello.o $(LDLIBS)
+hello: hello.o                           # hello needs hello.o
+	$(CC) -o hello hello.o $(LDLIBS) # link hello.o into hello
 
-hello.o: hello.c
-	$(CC) $(CFLAGS) -c hello.c
+hello.o: hello.c                   # hello.o needs hello.c
+	$(CC) $(CFLAGS) -c hello.c # compile hello.c
 
-clean:
-	$(RM)  hello.o hello out.txt
+.PHONEY: clean
+clean:                              # clean is a phoney target
+	$(RM) hello.o hello out.txt # clean up the directory
 
-test:
-	@echo $(LDLIBS)
-	@echo $(CC)
-	@echo $(RM)
-	
+.PHONEY: test
+test:                      # test target used for debugging
+	echo $(LDLIBS)
+	echo $(CC)
+	echo $(RM)

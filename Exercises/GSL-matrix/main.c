@@ -1,14 +1,13 @@
 #include<stdio.h>
-#include<stdlib.h>
 #include<gsl/gsl_vector.h>
 #include<gsl/gsl_matrix.h>
-#include<gsl/gsl_linalg.h>
 #include<gsl/gsl_blas.h>
+#include<gsl/gsl_linalg.h>
 #include<gsl/gsl_eigen.h>
 
 int hh(){
-  int n=3;
-  
+int n=3;
+
   gsl_matrix* A=gsl_matrix_alloc(n,n);
   gsl_matrix* Acopy=gsl_matrix_alloc(n,n);
   gsl_vector* b=gsl_vector_alloc(n);
@@ -16,17 +15,17 @@ int hh(){
   gsl_vector* y=gsl_vector_calloc(n);
 
   double A_data[3][3]={{6.13, -2.90, 5.86},{8.08, -6.31, -3.89},{-4.36, 1.00, 0.19}};
-  for (int i=0;i<n;i++){
-    for (int j=0;j<n;j++){
-      gsl_matrix_set(A,i,j,A_data[i][j]);
-    }
+  for(int i=0;i<n;i++){
+	  for(int j=0;j<n;j++){
+		  gsl_matrix_set(A,i,j,A_data[i][j]);
+	  }
   }
   gsl_matrix_memcpy(Acopy,A);
-  double b_data[]={6.23, 5.37, 2.29};
+  double b_data[]={6.23,5.37,2.29};
   for (int i=0;i<n;i++){
-    gsl_vector_set(b,i,b_data[i]);
+	gsl_vector_set(b,i,b_data[i]);
   }
-
+  
   gsl_linalg_HH_solve(Acopy,b,x);
   gsl_blas_dgemv(CblasNoTrans,1,A,x,0,y);
 
@@ -41,13 +40,12 @@ int hh(){
   gsl_vector_free(b);
   gsl_vector_free(x);
   gsl_vector_free(y);
-  return 0;
+return 0;
 }
 
 int hilbert(){
-  int n=4;
-
-  gsl_matrix* A=gsl_matrix_alloc(n,n);
+int n=4;
+ gsl_matrix* A=gsl_matrix_alloc(n,n);
   gsl_matrix* Acopy=gsl_matrix_alloc(n,n);
   gsl_vector* b=gsl_vector_alloc(n);
   gsl_vector* x=gsl_vector_alloc(n);
@@ -68,9 +66,11 @@ int hilbert(){
     double x_i=gsl_vector_get (x,i);
     gsl_vector_view evec_i = gsl_matrix_column (Acopy, i);
 
-    printf("Eigenval = %g\n", x_i);
+    printf("Eigenval = %g \n", x_i);
     printf("Eigenvector = \n");
     gsl_vector_fprintf(stdout, &evec_i.vector,"%g");
+    printf("******************************\n");
+
   }
 
   gsl_matrix_free(A);
@@ -80,6 +80,8 @@ int hilbert(){
   gsl_vector_free(y);
   return 0;
 }
+
+
 int main(){
 
   printf("######################### Linear System Solver #########################\n");
@@ -90,5 +92,5 @@ int main(){
 
   hilbert();
 
-  return 0;
+return 0;
 }

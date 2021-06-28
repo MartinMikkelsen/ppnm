@@ -1,6 +1,12 @@
 CFLAGS = -O -Wall -std=gnu11
 LDLIBS = -lm
 
+all: output.txt
+	@echo '================================='
+	@cat output.txt
+	@echo '================================='
+	@cat out.txt
+
 
 output.txt error.txt: input.txt cmdline stdio read-file 
 	./cmdline $$(cat input.txt) 1>output.txt 2>error.txt 

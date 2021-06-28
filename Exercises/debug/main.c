@@ -1,7 +1,6 @@
 #include<stdio.h>
 #include<gsl/gsl_matrix.h>
 
-
 int print_half_00(gsl_matrix* m)
 {
 	double half = 1.0/2;

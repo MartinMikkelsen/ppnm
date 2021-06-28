@@ -1,0 +1,9 @@
+set terminal pdf dpi 600
+set output "expo.pdf"
+set key outside
+set grid
+set xlabel "$x$"
+set ylabel "$y$"
+set title "Exponential function "
+plot \
+"data.txt"  using 1:2 w l lt 10 lw 4 color BrickRed  title "Exponential function" 			\
