@@ -1,0 +1,10 @@
+set terminal pdf dpi 600
+set output "time.pdf"
+set key outside
+set grid
+set xlabel "data set size $N$"
+set ylabel "time to perform FFT"
+set title "FFT time as function of data set size"
+plot \
+"out.timing.data" w p pt 2 color cyan title "Data" 	\
+,1*x*log(x) w l lt 2 lw 2 color SpringGreen title "N*log(N)"  	\
