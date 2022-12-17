@@ -1,0 +1,12 @@
+set terminal pdf dpi 600
+set output "mcplot.pdf"
+set key outside
+set grid
+set xlabel "$x$"
+set ylabel "$y$"
+set xrange [0:1]
+set yrange [0:1]
+set title "Monte Carlo Method "
+plot \
+"circle.txt" using 1:2 w l lt 10 lw 4 color BrickRed  title "Circle $r=1$" 			\
+,"data.txt" using 1:2 w p pt 31 lw 4 color grey title "Random points" 			\

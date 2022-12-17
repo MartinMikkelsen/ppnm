@@ -1,0 +1,12 @@
+set terminal pdf dpi 600
+set output "fft.pdf"
+set key outside
+set grid
+set xlabel "time"
+set ylabel "$y$"
+set title "Noise filtering using DFT"
+plot \
+"out.noise.data"  index 1 w l lw 2 color cyan title "Signal with random noise" 	\
+,"out.noise.data"  index 0 w l lw 2 color black title "Original signal" 	\
+,"out.noise.data"  index 2 w l lt 5 lw 2 color PineGreen title "Amplitude filtered" 	\
+,"out.noise.data"  index 3 w l lt 5 lw 2 color Brickred title "Frequency filtered" 	\
