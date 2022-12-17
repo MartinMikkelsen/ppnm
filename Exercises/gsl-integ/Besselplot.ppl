@@ -1,9 +1,0 @@
-set terminal pdf dpi 600
-set output "Besselplot.pdf"
-set key outside
-set grid
-set xlabel "$x$"
-set ylabel "$y$"
-set title "Bessel "
-plot \
- "DataBessel.txt" using 1:2 w l lw 2 color red title "$J_0$" 	\

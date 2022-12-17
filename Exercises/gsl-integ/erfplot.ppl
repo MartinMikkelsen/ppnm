@@ -1,9 +1,0 @@
-set terminal pdf dpi 600
-set output "erfplot.pdf"
-set key outside
-set grid
-set xlabel "$x$"
-set ylabel "$y$"
-set title "Error function "
-plot \
-"DataB.txt" using 1:2 w l lw 2 color red  title "Error function" 				\
